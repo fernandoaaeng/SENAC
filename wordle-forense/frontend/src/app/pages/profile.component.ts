@@ -6,18 +6,29 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-profile',
   standalone: true,
   template: `
-    <div class="card">
-      <h1>Perfil #{{ id }}</h1>
-      <p class="warn">V4: GET /api/users/id não checa identidade. Mude o número na barra de endereço (/users/1, /users/2…).</p>
+    <div class="page">
+      <h1>Conta</h1>
       @if (user) {
-        <p><strong>Username:</strong> {{ user.username }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Role:</strong> {{ user.role }}</p>
+        <p class="line"><span>Jogador</span>{{ user.username }}</p>
+        <p class="line"><span>Email</span>{{ user.email }}</p>
+        <p class="line"><span>Papel</span>{{ user.role }}</p>
       } @else if (error) {
         <p>{{ error }}</p>
       }
+      <p class="note">Mude o número na URL — /users/1, /users/2… — para ver outras contas (V4).</p>
     </div>
   `,
+  styles: [`
+    .line {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      margin: 0;
+      font-weight: 700;
+    }
+    .line span { color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  `],
 })
 export class ProfileComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -33,7 +44,7 @@ export class ProfileComponent implements OnInit {
       this.error = '';
       this.http.get<{ username: string; email: string; role: string }>(`/api/users/${this.id}`).subscribe({
         next: (u) => (this.user = u),
-        error: () => (this.error = 'Usuário não encontrado'),
+        error: () => (this.error = 'Não encontrado'),
       });
     });
   }

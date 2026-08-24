@@ -8,22 +8,27 @@ import { AuthService } from '../core/auth.service';
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div class="card">
-      <h1>Entrar</h1>
-      <p class="muted">Aula de computação forense — aplicação intencionalmente vulnerável.</p>
-      <p class="warn">V1: o login monta SQL por concatenação. Experimente usuário <code>admin' --</code>.</p>
+    <div class="page login">
+      <p class="kicker">Adivinhe a palavra de 5 letras.</p>
       <form (ngSubmit)="submit()">
-        <label>Usuário<br /><input name="username" [(ngModel)]="username" autocomplete="username" /></label>
-        <label>Senha<br /><input name="password" type="password" [(ngModel)]="password" autocomplete="current-password" /></label>
-        <button class="btn" type="submit">Entrar</button>
-        @if (error) { <p class="err">{{ error }}</p> }
+        <label>Usuário
+          <input name="username" [(ngModel)]="username" autocomplete="off" spellcheck="false" />
+        </label>
+        <label>Senha
+          <input name="password" type="password" [(ngModel)]="password" autocomplete="current-password" />
+        </label>
+        <button class="btn" type="submit">Jogar</button>
+        @if (error) { <p class="fail">{{ error }}</p> }
       </form>
-      <p class="muted">Contas seed: admin/admin123 · aluno1/senha123 · aluno2/senha456</p>
+      <p class="note">aluno1 / senha123 · aluno2 / senha456 · admin / admin123</p>
     </div>
   `,
   styles: [`
-    form { display: grid; gap: 12px; margin-top: 16px; }
-    .err { color: var(--danger); }
+    .login { text-align: center; padding-top: 48px; }
+    .kicker { font-size: 1.05rem; font-weight: 600; margin: 0 0 36px; }
+    form { display: grid; gap: 8px; text-align: left; }
+    .btn { width: 100%; margin-top: 12px; }
+    .fail { color: #fff; margin-top: 12px; font-weight: 700; font-size: 0.85rem; }
   `],
 })
 export class LoginComponent {
@@ -37,7 +42,7 @@ export class LoginComponent {
     this.error = '';
     this.auth.login(this.username, this.password).subscribe({
       next: () => this.router.navigateByUrl('/play'),
-      error: () => (this.error = 'Falha no login'),
+      error: () => (this.error = 'Não foi possível entrar'),
     });
   }
 }

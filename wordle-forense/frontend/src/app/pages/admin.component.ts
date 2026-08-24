@@ -21,58 +21,50 @@ interface UserRow {
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div class="card" style="max-width: 920px;">
-      <h1>Painel admin</h1>
-      <p class="warn">
-        Menu visível só se a role decodificada do token local for ADMIN (checagem só no front).
-        A API confia na role do token Base64 sem assinatura (V3).
-      </p>
+    <div class="page">
+      <h1>Admin</h1>
 
-      <h2>Usuários</h2>
-      <table>
-        <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th></tr></thead>
-        <tbody>
-          @for (u of users; track u.id) {
-            <tr>
-              <td>{{ u.id }}</td>
-              <td>{{ u.username }}</td>
-              <td>{{ u.email }}</td>
-              <td>{{ u.role }}</td>
-            </tr>
-          }
-        </tbody>
-      </table>
+      <h2>Jogadores</h2>
+      @for (u of users; track u.id) {
+        <p class="line"><span>#{{ u.id }} {{ u.username }}</span>{{ u.role }}</p>
+      }
 
       <h2>Palavras</h2>
-      <form class="row" (ngSubmit)="create()">
-        <input name="w" [(ngModel)]="newWord" maxlength="5" placeholder="PALAVRA" />
+      <form (ngSubmit)="create()">
+        <label>Nova
+          <input name="w" [(ngModel)]="newWord" maxlength="5" autocomplete="off" spellcheck="false" />
+        </label>
         <select name="d" [(ngModel)]="newDiff">
           <option>FACIL</option>
           <option>MEDIO</option>
           <option>DIFICIL</option>
         </select>
-        <button class="btn" type="submit">Criar</button>
+        <button class="btn" type="submit">Adicionar</button>
       </form>
-      <table>
-        <thead><tr><th>ID</th><th>Palavra</th><th>Dificuldade</th><th>Ativa</th><th></th></tr></thead>
-        <tbody>
-          @for (w of words; track w.id) {
-            <tr>
-              <td>{{ w.id }}</td>
-              <td>{{ w.word }}</td>
-              <td>{{ w.difficulty }}</td>
-              <td>{{ w.active ? 'sim' : 'não' }}</td>
-              <td>
-                <button class="btn btn-ghost" type="button" (click)="toggle(w)">{{ w.active ? 'desativar' : 'ativar' }}</button>
-                <button class="btn btn-danger" type="button" (click)="remove(w.id)">apagar</button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+      @for (w of words; track w.id) {
+        <p class="line">
+          <span>{{ w.word }}</span>
+          <button class="btn-ghost" type="button" (click)="toggle(w)">{{ w.active ? 'on' : 'off' }}</button>
+          <button class="btn-danger" type="button" (click)="remove(w.id)">apagar</button>
+        </p>
+      }
+      <p class="note">A API confia na role que veio no token Base64, sem consultar o banco (V3).</p>
     </div>
   `,
-  styles: [`.row { display: flex; gap: 8px; margin: 12px 0; }`],
+  styles: [`
+    h2 { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 28px 0 8px; }
+    .line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin: 0;
+      font-weight: 700;
+    }
+    form { display: grid; gap: 10px; margin-bottom: 8px; }
+  `],
 })
 export class AdminComponent implements OnInit {
   private http = inject(HttpClient);

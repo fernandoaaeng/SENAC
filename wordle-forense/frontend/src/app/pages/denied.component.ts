@@ -6,15 +6,16 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <div class="card">
-      <h1>Acesso negado</h1>
-      <p>O front bloqueou /admin porque a role do token local não é ADMIN.</p>
-      <p class="warn">
-        Objetivo da aula (V3): a API continua aceitando a chamada se o token adulterado
-        for enviado direto (Console/fetch ou curl), mesmo com esta tela.
-      </p>
+    <div class="page">
+      <h1>Sem acesso</h1>
+      <p>Esta tela só abre para quem o token local diz ser ADMIN.</p>
       <p><a routerLink="/play">Voltar ao jogo</a></p>
+      <p class="note">A API ainda aceita o token adulterado via Console (V3).</p>
     </div>
   `,
+  styles: [`
+    p { line-height: 1.5; color: #d7dadc; }
+    a { font-weight: 800; }
+  `],
 })
 export class DeniedComponent {}
