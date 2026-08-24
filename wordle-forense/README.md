@@ -31,7 +31,7 @@ O roteiro falado (tempo, o que mostrar na tela, o que perguntar à turma) está 
 | Orquestração | Docker Compose |
 | Deploy | scripts AWS (Security Group) e Azure (NSG), IP da sala |
 
-Arquitetura em Docker: só a porta **80** do frontend é publicada. Backend e banco ficam na rede interna do Compose. O Nginx faz proxy de `/api` para o Quarkus.
+Arquitetura em Docker: a porta **80** (app) e a **5432** (Postgres, para o DBeaver na máquina local) são publicadas. O backend Quarkus continua só na rede interna; o Nginx faz proxy de `/api`. Na nuvem, **não** abra 5432 no Security Group / NSG — só a porta 80 para o IP da sala.
 
 ---
 
@@ -61,6 +61,27 @@ docker compose down
 ```
 
 O volume de dados do Postgres **não** é persistido em named volume dedicado: se precisar resetar o seed, `docker compose down -v` (apaga o volume anônimo do banco).
+
+### DBeaver — conectar no banco local
+
+Com o Compose no ar (`docker compose up`), crie uma conexão **PostgreSQL** no DBeaver:
+
+| Campo | Valor |
+|---|---|
+| Host | `localhost` |
+| Port | `5432` |
+| Database | `wordle` |
+| Username | `wordle` |
+| Password | `wordle` |
+| URL JDBC | `jdbc:postgresql://localhost:5432/wordle` |
+
+Passos: **Database → New Database Connection → PostgreSQL** → preencha a tabela → **Test Connection** → Finish.
+
+Tabelas para acompanhar o jogo e os ataques: `users`, `words`, `game_sessions`, `attempts`. Depois de um login ou de uma partida, dê refresh no schema (F5) para ver inserts e tentativas novas.
+
+Se a conexão recusar: confira se o container `db` está healthy (`docker compose ps`) e se nada mais na máquina já usa a 5432 (Postgres instalado no Windows). Nesse caso altere o mapeamento no `docker-compose.yml` para `"5433:5432"` e use a porta **5433** no DBeaver.
+
+> Em deploy na AWS/Azure **não** publique 5432. O DBeaver só faz sentido no computador onde o Docker está rodando (ou via túnel SSH), sem abrir o banco na internet.
 
 ### Logs (rastro forense)
 
