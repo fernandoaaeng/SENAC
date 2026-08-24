@@ -28,7 +28,7 @@ public class Attempt extends PanacheEntityBase {
 
     @ManyToOne
     @JoinColumn(name = "session_id")
-    private GameSession session;
+    private GameSession gameSession;
 
     private String guess;
     private String result;

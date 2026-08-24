@@ -11,10 +11,10 @@ import java.util.List;
 public class AttemptRepository implements PanacheRepository<Attempt> {
 
     public long countBySession(GameSession session) {
-        return count("session", session);
+        return count("gameSession", session);
     }
 
     public List<Attempt> listBySession(GameSession session) {
-        return list("session", session);
+        return list("gameSession", session);
     }
 }

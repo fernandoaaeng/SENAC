@@ -85,7 +85,7 @@ public class GameService {
         String result = WordleEvaluator.evaluate(session.getWord().getWord(), guess);
 
         Attempt attempt = new Attempt();
-        attempt.setSession(session);
+        attempt.setGameSession(session);
         attempt.setGuess(guess);
         attempt.setResult(result);
         attempt.setAttemptNumber((int) count + 1);
