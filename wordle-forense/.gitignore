@@ -1,0 +1,10 @@
+node_modules
+dist
+.angular
+target
+.idea
+*.iml
+logs/backend/*.log
+logs/postgres/*
+!logs/backend/.gitkeep
+!logs/postgres/.gitkeep
