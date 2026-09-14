@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle UC11</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <h1>WORDLE</h1>
+    <p class="subtitulo">Aula 10 — FastAPI + POO</p>
+
+    <section id="tela-login" class="card">
+      <h2>Login</h2>
+      <p class="dica">Usuario: <strong>jogador</strong> &nbsp; Senha: <strong>wordle123</strong></p>
+      <label>Usuario
+        <input id="usuario" type="text" autocomplete="username">
+      </label>
+      <label>Senha
+        <input id="senha" type="password" autocomplete="current-password">
+      </label>
+      <button id="btn-login" type="button">Entrar</button>
+      <p id="msg-login" class="msg"></p>
+    </section>
+
+    <section id="tela-jogo" class="escondido">
+      <p id="status" class="status"></p>
+      <div id="grid" class="grid" aria-label="Tabuleiro"></div>
+
+      <form id="form-chute" class="chute">
+        <input id="chute" type="text" maxlength="8" autocapitalize="characters" autocomplete="off">
+        <button type="submit">Tentar</button>
+      </form>
+      <button id="btn-novo" type="button" class="secundario">Nova partida</button>
+      <p id="msg-jogo" class="msg"></p>
+    </section>
+  </main>
+  <script src="/static/script.js"></script>
+</body>
+</html>
