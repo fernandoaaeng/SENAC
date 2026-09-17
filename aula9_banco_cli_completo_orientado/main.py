@@ -1,4 +1,6 @@
-# Mini banco CLI - rode nesta pasta: python main.py
+# Mini banco CLI COM orientacao a objetos.
+# Rode nesta pasta: python main.py
+# Compare com aula9_banco_cli_completo_estruturado (mesma aplicacao so com funcoes).
 # O menu so le a opcao; quem imprime resultado e o BancoService.
 
 from models.banco import Banco
