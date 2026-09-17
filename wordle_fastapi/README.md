@@ -8,7 +8,7 @@ Login de demonstracao: **jogador** / **wordle123**
 No terminal, entre na pasta do projeto:
 
 ```bash
-cd aula10_wordle_fastapi
+cd wordle_fastapi
 ```
 
 ## 2. (Opcional) Criar e ativar um ambiente virtual (venv)
@@ -47,7 +47,7 @@ Para sair do venv depois: `deactivate`
 
 ## 3. Instalar as dependencias
 
-Com o terminal ainda na pasta `aula10_wordle_fastapi` (e de preferencia com o venv ativo):
+Com o terminal ainda na pasta `wordle_fastapi` (e de preferencia com o venv ativo):
 
 ```bash
 python -m pip install -r requirements.txt

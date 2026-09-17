@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco UC11</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Banco UC11</h1>
+      <p class="subtitulo">A mesma classe <code>Banco</code> do CLI, agora via FastAPI</p>
+      <p class="docs"><a href="/docs" target="_blank">Abrir Swagger (/docs)</a></p>
+    </header>
+
+    <section class="grade-forms">
+      <form id="form-cliente" class="card">
+        <h2>Cadastrar cliente</h2>
+        <label>Nome
+          <input id="cliente-nome" type="text" name="nome" required>
+        </label>
+        <label>CPF
+          <input id="cliente-cpf" type="text" name="cpf" required>
+        </label>
+        <button type="submit">Cadastrar</button>
+      </form>
+
+      <form id="form-conta" class="card">
+        <h2>Criar conta</h2>
+        <label>CPF do cliente
+          <input id="conta-cpf" type="text" name="cpf" required>
+        </label>
+        <label>Tipo
+          <select id="conta-tipo" name="tipo">
+            <option value="p">Poupanca</option>
+            <option value="c">Corrente</option>
+          </select>
+        </label>
+        <label>Saldo inicial
+          <input id="conta-saldo" type="number" name="saldo" step="0.01" required>
+        </label>
+        <button type="submit">Criar conta</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Contas</h2>
+      <p class="dica">Ana (CPF 1, conta 1001 poupanca) e Bruno (CPF 2, conta 1002 corrente) ja vem cadastrados.</p>
+      <div class="tabela-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Numero</th>
+              <th>Titular</th>
+              <th>Tipo</th>
+              <th>Saldo</th>
+              <th>Acoes</th>
+            </tr>
+          </thead>
+          <tbody id="lista-contas"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="/static/script.js"></script>
+</body>
+</html>
